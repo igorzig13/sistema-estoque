@@ -19,6 +19,6 @@ public @Data class Stock {
     @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY)
     private List<Operation> history;
 
-    @OneToOne(mappedBy = "store_id")
+    @OneToOne(mappedBy = "stock")
     private Store store;
 }

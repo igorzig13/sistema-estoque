@@ -15,6 +15,6 @@ public @Data class Store {
 
     private String address;
 
-    @OneToOne(mappedBy = "stock_id")
+    @OneToOne
     private Stock stock;
 }
