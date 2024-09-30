@@ -6,6 +6,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "products")
 public @Data class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

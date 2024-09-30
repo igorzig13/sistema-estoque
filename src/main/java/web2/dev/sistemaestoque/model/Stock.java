@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Entity
+@Table(name = "stocks")
 public @Data class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

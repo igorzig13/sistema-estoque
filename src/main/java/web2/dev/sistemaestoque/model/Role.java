@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "roles")
 public @Data class Role implements GrantedAuthority {
 
     @Id
@@ -14,6 +15,7 @@ public @Data class Role implements GrantedAuthority {
     @Column(name = "role_id")
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
 
     @Override

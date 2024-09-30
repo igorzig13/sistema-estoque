@@ -6,10 +6,11 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "operations")
 public @Data class Operation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "store_id")
+    @Column(name = "operation_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)

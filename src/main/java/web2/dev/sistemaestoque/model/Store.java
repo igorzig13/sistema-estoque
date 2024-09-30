@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
+@Table(name = "stores")
 public @Data class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "store_id")
     private Long id;
 
     private String name;
