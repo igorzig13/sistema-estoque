@@ -33,7 +33,17 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    private static final String[] PUBLIC_URLS = {"/", "/login"};
+    private static final String[] PUBLIC_URLS = {"/", "/login", "/h2-console/**"};
+
+    private static final String[] SWAGGER_WHITELIST = {
+            "/swagger-ui.html",
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/swagger-resources/**",
+            "/webjars/**",
+            "/configuration/ui",
+            "/configuration/security"
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -42,6 +52,8 @@ public class SecurityConfig {
                 .addFilterAfter(new JWTFilter(securityProperties), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests( (requests) -> requests
                         .requestMatchers(PUBLIC_URLS).permitAll()
+                        .requestMatchers("/users/register").permitAll()
+                        .requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement((sessionManager) -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
