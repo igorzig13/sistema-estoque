@@ -8,7 +8,9 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findByNameContaining(String name);
+    List<Product> findByNameContainingIgnoreCase(String name);
 
-    List<Product> findByQuantityLessThan(int quantity);
+    List<Product> findByQuantityBetween(int min, int max);
+
+    List<Product> findByQuantityLessThan(int limit);
 }
