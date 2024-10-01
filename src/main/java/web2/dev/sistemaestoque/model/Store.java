@@ -16,5 +16,6 @@ public @Data class Store {
     private String address;
 
     @OneToOne
+    @JoinColumn(name = "stock_id")
     private Stock stock;
 }

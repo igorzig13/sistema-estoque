@@ -1,4 +1,4 @@
-# Imagem base com Java 17
+# Imagem base com Java 21
 FROM openjdk:21-jdk-slim
 
 WORKDIR /app
