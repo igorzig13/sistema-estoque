@@ -58,3 +58,7 @@ Também são cadastrado 3 usuários, um para cada role:
 - Username: user, Password: user
 
 Use-os no endpoint de login para testar a geração do token!
+
+## Diagrama de classes
+
+![Diagrama de classes](src/main/resources/static/prints/diagram.png)
