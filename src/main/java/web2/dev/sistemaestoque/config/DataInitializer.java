@@ -29,9 +29,9 @@ public class DataInitializer implements CommandLineRunner {
         createRoleIfNotExists("ROLE_MANAGER");
         createRoleIfNotExists("ROLE_ADMIN");
 
-        createUserIfNotExists("USER", "user@email.com", "user", "ROLE_USER");
-        createUserIfNotExists("ADMIN", "admin@email.com", "admin", "ROLE_ADMIN");
-        createUserIfNotExists("MANAGER", "manager@email.com", "manager", "ROLE_MANAGER");
+        createUserIfNotExists("user", "user@email.com", "user", "ROLE_USER");
+        createUserIfNotExists("admin", "admin@email.com", "admin", "ROLE_ADMIN");
+        createUserIfNotExists("manager", "manager@email.com", "manager", "ROLE_MANAGER");
 
     }
 
