@@ -5,5 +5,4 @@ import org.springframework.stereotype.Repository;
 import web2.dev.sistemaestoque.model.Store;
 
 @Repository
-public interface StoreRepository extends JpaRepository<Store, Long> {
-}
+public interface StoreRepository extends JpaRepository<Store, Long> {}

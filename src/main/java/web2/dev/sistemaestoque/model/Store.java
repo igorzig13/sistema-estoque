@@ -3,6 +3,8 @@ package web2.dev.sistemaestoque.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Table(name = "stores")
 public @Data class Store {
@@ -15,7 +17,9 @@ public @Data class Store {
 
     private String address;
 
-    @OneToOne
-    @JoinColumn(name = "stock_id")
-    private Stock stock;
+    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+    private List<Product> products;
+
+    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+    private List<Operation> history;
 }

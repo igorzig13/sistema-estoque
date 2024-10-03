@@ -1,11 +1,8 @@
 package web2.dev.sistemaestoque.service;
 
 import org.springframework.stereotype.Service;
+import web2.dev.sistemaestoque.model.*;
 import web2.dev.sistemaestoque.model.DTOs.OperationDTO;
-import web2.dev.sistemaestoque.model.Operation;
-import web2.dev.sistemaestoque.model.OperationType;
-import web2.dev.sistemaestoque.model.Product;
-import web2.dev.sistemaestoque.model.Stock;
 import web2.dev.sistemaestoque.repository.OperationRepository;
 import web2.dev.sistemaestoque.repository.ProductRepository;
 
@@ -28,11 +25,10 @@ public class StockService {
         product.setQuantity(product.getQuantity() + operationDTO.getQuantity());
         productRepository.save(product);
 
-        Stock stock = product.getStock();
-
+        Store store = product.getStore();
         Operation operation = new Operation();
         operation.setProduct(product);
-        operation.setStock(stock);
+        operation.setStore(store);
         operation.setDateTime(LocalDateTime.now());
         operation.setOperationType(OperationType.PURCHASE);
 
@@ -50,11 +46,10 @@ public class StockService {
         product.setQuantity(product.getQuantity() - operationDTO.getQuantity());
         productRepository.save(product);
 
-        Stock stock = product.getStock();
-
+        Store store = product.getStore();
         Operation operation = new Operation();
         operation.setProduct(product);
-        operation.setStock(stock);
+        operation.setStore(store);
         operation.setDateTime(LocalDateTime.now());
         operation.setOperationType(OperationType.SALE);
 

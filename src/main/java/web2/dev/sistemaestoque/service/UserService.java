@@ -34,7 +34,10 @@ public class UserService implements UserDetailsService {
         user.setEmail(userRegisterDTO.getEmail());
         user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
 
-        Set<Role> roles = userRegisterDTO.getRoleNames().stream()
+        Set<String> roleNames = userRegisterDTO.getRoleNames().stream()
+                .map( roleName -> "ROLE_" + roleName.toUpperCase()).collect(Collectors.toSet());
+
+        Set<Role> roles = roleNames.stream()
                 .map(roleName -> roleRepository.findByName(roleName)
                         .orElseThrow(() -> new RuntimeException("Role not found: " + roleName)))
                 .collect(Collectors.toSet());

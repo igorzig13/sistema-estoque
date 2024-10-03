@@ -23,6 +23,6 @@ public @Data class Operation {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "stock_id")
-    private Stock stock;
+    @JoinColumn(name = "store_id")
+    private Store store;
 }

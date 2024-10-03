@@ -27,6 +27,6 @@ public @Data class Product {
     private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stock_id")
-    private Stock stock;
+    @JoinColumn(name = "store_id")
+    private Store store;
 }

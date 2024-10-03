@@ -1,5 +1,7 @@
 package web2.dev.sistemaestoque.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web2.dev.sistemaestoque.model.DTOs.ProductRegisterDTO;
@@ -10,6 +12,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
+@SecurityRequirement(name = "Bearer Authentication")
+@Tag(name = "Product", description = "All operations related to products. Manager or higher role is required.")
 public class ProductController {
     private final ProductService productService;
 

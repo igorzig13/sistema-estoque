@@ -3,20 +3,20 @@ package web2.dev.sistemaestoque.service;
 import org.springframework.stereotype.Service;
 import web2.dev.sistemaestoque.model.DTOs.ProductRegisterDTO;
 import web2.dev.sistemaestoque.model.Product;
-import web2.dev.sistemaestoque.model.Stock;
+import web2.dev.sistemaestoque.model.Store;
 import web2.dev.sistemaestoque.repository.ProductRepository;
-import web2.dev.sistemaestoque.repository.StockRepository;
+import web2.dev.sistemaestoque.repository.StoreRepository;
 
 import java.util.List;
 
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
-    private final StockRepository stockRepository;
+    private final StoreRepository storeRepository;
 
-    public ProductService(ProductRepository productRepository, StockRepository stockRepository) {
+    public ProductService(ProductRepository productRepository, StoreRepository storeRepository) {
         this.productRepository = productRepository;
-        this.stockRepository = stockRepository;
+        this.storeRepository = storeRepository;
     }
 
     public void registerProduct(ProductRegisterDTO productRegisterDTO) {
@@ -28,11 +28,11 @@ public class ProductService {
         product.setSalePrice(productRegisterDTO.getSalePrice());
         product.setQuantity(productRegisterDTO.getQuantity());
 
-        Stock stock = stockRepository.findByStore_Id(productRegisterDTO.getStoreId())
-                .orElseThrow(() -> new RuntimeException("Stock not found using the supplied store id " + productRegisterDTO.getStoreId()));
+        Store store = storeRepository.findById(productRegisterDTO.getStoreId())
+                        .orElseThrow(() -> new RuntimeException("Store not found using the supplied id " + productRegisterDTO.getStoreId()));
 
-        product.setStock(stock);
-        stock.getProducts().add(product);
+        product.setStore(store);
+        store.getProducts().add(product);
         productRepository.save(product);
     }
 

@@ -8,6 +8,8 @@ import web2.dev.sistemaestoque.model.Role;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -42,7 +44,7 @@ public class JWTCreator {
         jwtObject.setExpiration(claims.getExpiration());
 
         @SuppressWarnings("unchecked")
-        Set<String> roleNames = (Set<String>) claims.get(ROLES_AUTHORITIES);
+        Set<String> roleNames = new HashSet<>((Collection<? extends String>) claims.get(ROLES_AUTHORITIES));
         jwtObject.setRoles(roleNames.stream().map(Role::new).collect(Collectors.toSet()));
 
         return jwtObject;

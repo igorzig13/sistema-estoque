@@ -2,6 +2,9 @@ package web2.dev.sistemaestoque.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -33,7 +37,22 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    private static final String[] PUBLIC_URLS = {"/", "/login", "/h2-console/**"};
+    @Bean
+    static RoleHierarchy roleHierarchy() {
+        return RoleHierarchyImpl.withDefaultRolePrefix()
+                .role("ADMIN").implies("MANAGER")
+                .role("MANAGER").implies("USER")
+                .build();
+    }
+
+    @Bean
+    static MethodSecurityExpressionHandler methodSecurityExpressionHandler(RoleHierarchy roleHierarchy) {
+        DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
+        expressionHandler.setRoleHierarchy(roleHierarchy);
+        return expressionHandler;
+    }
+
+    private static final String[] PUBLIC_URLS = {"/", "/auth/login", "/h2-console/**"};
 
     private static final String[] SWAGGER_WHITELIST = {
             "/swagger-ui.html",
@@ -52,7 +71,10 @@ public class SecurityConfig {
                 .addFilterAfter(new JWTFilter(securityProperties), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests( (requests) -> requests
                         .requestMatchers(PUBLIC_URLS).permitAll()
-                        .requestMatchers("/users/register").permitAll()
+                        .requestMatchers("/users/**").hasRole("ADMIN")
+                        .requestMatchers("/roles/**").hasRole("ADMIN")
+                        .requestMatchers("/products/**").hasRole("MANAGER")
+                        .requestMatchers("/stores/**").hasRole("MANAGER")
                         .requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .anyRequest().authenticated()
                 )
