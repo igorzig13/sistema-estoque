@@ -43,3 +43,13 @@ e também o JDK 21.
    ```
    
 Prontinho! Se tudo estiver ok, basta acessar `localhost:8080/swagger-ui.html` para ter acesso à documentação e começar a testar a API.
+
+### Orientações para testagem
+
+Por padrão a aplicação cria 3 roles ao iniciar a aplicação: ADMIN, MANAGER e USER;
+Também são cadastrado 3 usuários, um para cada role:
+- Username: admin, Password: admin
+- Username: manager, Password: manager
+- Username: user, Password: user
+
+Use-os no endpoint de login para testar a geração do token!
