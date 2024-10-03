@@ -12,6 +12,11 @@ Este projeto é um sistema de controle de estoque desenvolvido com Spring Boot, 
 - Documentação: Swagger e OpenAPI 3
 
 
+### Imagens da API
+
+![Print 1](src/main/resources/static/prints/print-1.png)
+![Print 2](src/main/resources/static/prints/print-2.png)
+
 ## Como rodar a aplicação
 Por simplicidade, aqui vão as orientações para rodar o projeto com Docker Compose. Garanta que tenha Docker instalado na sua máquina
 e também o JDK 21.
