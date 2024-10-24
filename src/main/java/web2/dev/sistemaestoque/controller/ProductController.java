@@ -38,10 +38,12 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id) {
+    public ResponseEntity<ProductRegisterDTO> findById(@PathVariable Long id) {
         Product product = productService.findById(id);
         if (product != null) {
-            return ResponseEntity.ok(product);
+            // TODO: CRIAR DTO PARA VIEW E TRANSFERIR LÓGICA PARA O SERVICE
+            ProductRegisterDTO productRegisterDTO = ProductRegisterDTO.from(product);
+            return ResponseEntity.ok(productRegisterDTO);
         } else {
             return ResponseEntity.notFound().build();
         }

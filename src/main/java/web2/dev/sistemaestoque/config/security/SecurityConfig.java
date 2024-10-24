@@ -75,6 +75,7 @@ public class SecurityConfig {
                         .requestMatchers("/roles/**").hasRole("ADMIN")
                         .requestMatchers("/products/**").hasRole("MANAGER")
                         .requestMatchers("/stores/**").hasRole("MANAGER")
+                        .requestMatchers("/view/product/form").hasRole("ADMIN")
                         .requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .anyRequest().authenticated()
                 )

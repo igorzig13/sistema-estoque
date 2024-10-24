@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="~{header :: header}"></div>
+<div class="container">
+    <h2>Register a new product</h2>
+    <form th:action="@{/view/product/form}" method="post" th:object="${product}">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" class="form-control" id="description" th:field="*{description}" required>
+        </div>
+        <div class="form-group">
+            <label for="purchasePrice">Purchase price:</label>
+            <input type="number" step=".01" class="form-control" id="purchasePrice" th:field="*{purchasePrice}" required>
+        </div>
+        <div class="form-group">
+            <label for="salePrice">Sale price:</label>
+            <input type="number" step=".01" class="form-control" id="salePrice" th:field="*{salePrice}" required>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" class="form-control" id="quantity" th:field="*{quantity}" required>
+        </div>
+        <div class="form-group">
+            <label for="storeID">Store id:</label>
+            <input type="number" class="form-control" id="storeID" th:field="*{storeId}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+</body>
+</html>
