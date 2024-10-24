@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div th:replace="~{header :: header}"></div>
+    <div class="container">
+        <h1>Welcome to the stock application!</h1>
+        <a th:href="@{/view/login}" class="btn btn-primary">Login</a>
+    </div>
+</body>
+</html>

@@ -52,7 +52,7 @@ public class SecurityConfig {
         return expressionHandler;
     }
 
-    private static final String[] PUBLIC_URLS = {"/", "/auth/login", "/h2-console/**"};
+    private static final String[] PUBLIC_URLS = {"/", "/home", "/auth/login", "/h2-console/**", "/view/login"};
 
     private static final String[] SWAGGER_WHITELIST = {
             "/swagger-ui.html",
