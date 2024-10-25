@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List of products</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-  <h1>HERE WILL BE SHOWN THE LIST OF PRODUCTS</h1>
+<div th:replace="~{header :: header}"></div>
+
+<div class="container">
+    <div class="text-center mt-3" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <a th:href="@{/view/product/form}" class="btn btn-success">Register a new product</a>
+    </div>
+    <h1>Select the store:</h1>
+    <form th:action="@{/view/product/list}" method="post">
+        <label>
+            <select name="store_id" th:value="${storeId}" class="form-control">
+                <option th:each="store : ${stores}"
+                        th:value="${store.id}"
+                        th:text="${store.name}">Store</option>
+            </select>
+        </label>
+        <button type="submit" class="btn btn-primary mt-2">Search products</button>
+    </form>
+
+    <h2 class="mt-4">List of products in the store:</h2>
+    <div th:if="${products.isEmpty()}">
+        <p>No product has been found.</p>
+    </div>
+    <div th:if="${not products.isEmpty()}">
+        <table class="table table-striped mt-3">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}">Name</td>
+                <td th:text="${product.description}">Description</td>
+                <td th:text="${product.quantity}">Quantity</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>

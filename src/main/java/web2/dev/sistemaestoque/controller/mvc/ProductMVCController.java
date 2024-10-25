@@ -1,22 +1,46 @@
 package web2.dev.sistemaestoque.controller.mvc;
 
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import web2.dev.sistemaestoque.model.DTOs.ProductRegisterDTO;
+import web2.dev.sistemaestoque.service.ProductService;
+import web2.dev.sistemaestoque.service.StoreService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/view/product")
+@Transactional
 public class ProductMVCController {
 
-    @GetMapping
-    public String list(Model model) {
-        // TODO: LOGIC TO SHOW LIST OF REGISTERED PRODUCTS
+    private final ProductService productService;
+    private final StoreService storeService;
+
+    public ProductMVCController(ProductService productService, StoreService storeService) {
+        this.productService = productService;
+        this.storeService = storeService;
+    }
+
+    @GetMapping("/list")
+    public String showListPage(@RequestParam(value = "store_id", required = false) Long storeId, Model model) {
+        List<ProductRegisterDTO> productRegisterDTOs = new ArrayList<>();
+
+        if (storeId != null) {
+            productRegisterDTOs = productService.findAllByStoreId(storeId);
+        }
+
+        model.addAttribute("products", productRegisterDTOs);
+        model.addAttribute("storeId", storeId);
+        model.addAttribute("stores", storeService.findAllIdAndName());
         return "productList";
+    }
+
+    @PostMapping("/list")
+    public String listByStore(@ModelAttribute("store_id") Long id) {
+        return "redirect:/view/product/list?store_id=" + id;
     }
 
     @GetMapping("/form")
@@ -27,6 +51,7 @@ public class ProductMVCController {
 
     @PostMapping("/form")
     public String processForm(@ModelAttribute("product") ProductRegisterDTO product) {
-        return "redirect:/view/product";
+        productService.registerProduct(product);
+        return "redirect:/view/product/list";
     }
 }

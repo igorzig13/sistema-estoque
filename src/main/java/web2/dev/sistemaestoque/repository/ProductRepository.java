@@ -13,4 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByQuantityBetween(int min, int max);
 
     List<Product> findByQuantityLessThan(int limit);
+
+    List<Product> findAllByStoreId(Long storeId);
 }

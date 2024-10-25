@@ -1,4 +1,4 @@
-package web2.dev.sistemaestoque.controller;
+package web2.dev.sistemaestoque.controller.mvc;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,7 +39,7 @@ public class LoginController {
             cookie.setPath("/");
             cookie.setMaxAge(60 * 60);
             response.addCookie(cookie);
-            return "redirect:/home";
+            return "redirect:/view/product/list";
         } catch (Exception e) {
             String message = (e instanceof UsernameNotFoundException) ? "Invalid username!" : "Invalid credentials!";
             redirectAttributes.addFlashAttribute("errorMessage", message);

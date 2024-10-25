@@ -51,4 +51,10 @@ public class ProductService {
     public List<Product> findLowQuantity(int limit) {
         return productRepository.findByQuantityLessThan(limit);
     }
+
+    public List<ProductRegisterDTO> findAllByStoreId(Long id) {
+        List<Product> products = productRepository.findAllByStoreId(id);
+
+        return products.stream().map(ProductRegisterDTO::from).toList();
+    }
 }
